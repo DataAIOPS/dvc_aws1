@@ -1,0 +1,48 @@
+conda create -n dvc_venv
+conda activate dvc_venv
+
+
+git init
+dvc init
+
+dvc remote add -d myremote s3://mydvcbucketnew
+export AWS_ACCESS_KEY_ID=<<<<<>>>>>>
+export AWS_SECRET_ACCESS_KEY=<<<<<>>>>>>
+
+dvc add data.txt
+dvc push
+
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin <<<your GitHub repo>>
+git push -u origin main
+---------------------------------------------------------
+Lets add 1 more line in data.txt and code.py
+
+dvc add data.txt
+dvc push
+
+git add .
+git commit -m "second"
+git push -u origin main
+
+---------------------------------------------------------
+Lets add 1 more line in data.txt and code.py
+
+dvc add data.txt
+dvc push
+
+git add .
+git commit -m "second"
+git push -u origin main
+
+----------------------------------------
+Go to first commit and see code.py and data.txt
+
+git log --oneline  => copy commit id of first commit
+git checkout <<firtCommitID>> => verify if code.py and data.txt.dvc is updated
+
+however data.txt is not yet updated
+dvc checkout  => verify if data.txt is updated (dvc checkout will only look files in cache and if caches are not available then it will through error. in that case use dvc pull)
+
